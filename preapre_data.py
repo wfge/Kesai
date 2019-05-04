@@ -51,7 +51,24 @@ test_x=data_all[len_train:]
 # print(train_x[0:10])
 # print(test_x[0:10])
 grid_values={'C':[30]}
-model_LR=GridSearchCV(LR(penalty='L2',dual=True,random_state=0),grid_values=0,tol=0.0001)
+model_LR=GridSearchCV(LR(penalty='l2',dual=True,random_state=0),grid_values,scoring='roc_auc',cv=20)
+model_LR.fit(train_x,label)
+
+auc=GridSearchCV(cv=20,
+             estimator=LR(C=1.0,
+                        class_weight=None,
+                        dual=True,fit_intercept=True,
+                        intercept_scaling=1,penalty='L2',
+                        random_state=0,tol=0.0001),
+             fit_params={},
+             iid=True,
+             n_jobs=1,
+             param_grid={'C':[30]},pre_dispatch='2*n_jobs',
+             refit=True,
+             scoring='roc_auc',
+             verbose=0
+             )
+auc=
 
 
 
